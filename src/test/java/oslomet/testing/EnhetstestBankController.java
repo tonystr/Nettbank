@@ -25,16 +25,16 @@ import static org.mockito.Mockito.when;
 public class EnhetstestBankController {
 
     @InjectMocks
-    // denne skal testes
+    // Skal testes
     private BankController bankController;
 
     @Mock
-    // denne skal Mock'es
+    // Skal mock'es
     private BankRepository repository;
 
     @Mock
-    // denne skal Mock'es
-    private Sikkerhet sjekk;
+    // Skal mock'es
+    private Sikkerhet sikkerhet;
 
     @Test
     public void hentKundeInfo_loggetInn() {
@@ -44,7 +44,7 @@ public class EnhetstestBankController {
                 "Majorstuen 88", "1234", "Bjølsen", "12341234",
                 "123456789");
 
-        when(sjekk.loggetInn()).thenReturn("43214312431");
+        when(sikkerhet.loggetInn()).thenReturn("43214312431");
 
         when(repository.hentKundeInfo(anyString())).thenReturn(enKunde);
 
@@ -59,9 +59,9 @@ public class EnhetstestBankController {
     public void hentKundeInfo_IkkeloggetInn() {
 
         // arrange
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
-        //act
+        // act
         Kunde resultat = bankController.hentKundeInfo();
 
         // assert
@@ -79,7 +79,7 @@ public class EnhetstestBankController {
         konti.add(konto1);
         konti.add(konto2);
 
-        when(sjekk.loggetInn()).thenReturn("43214312431");
+        when(sikkerhet.loggetInn()).thenReturn("43214312431");
 
         when(repository.hentKonti(anyString())).thenReturn(konti);
 
@@ -93,7 +93,7 @@ public class EnhetstestBankController {
     @Test
     public void hentKonti_IkkeLoggetInn()  {
         // arrange
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         // act
         List<Konto> resultat = bankController.hentKonti();
@@ -105,7 +105,7 @@ public class EnhetstestBankController {
     @Test
     public void hentTransaksjoner_ikkeLoggetInn() {
         // arrange
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         // act
         Konto resultat = bankController.hentTransaksjoner("12346666666",
@@ -122,7 +122,7 @@ public class EnhetstestBankController {
         String fraDato = "2001-07-26";
         String tilDato = "2001-07-29";
         Konto konto = new Konto();
-        when(sjekk.loggetInn()).thenReturn("12345678910");
+        when(sikkerhet.loggetInn()).thenReturn("12345678910");
         when(repository.hentTransaksjoner(kontonummer, fraDato, tilDato)).thenReturn(konto);
 
         // act
@@ -140,7 +140,7 @@ public class EnhetstestBankController {
                 8989, "Lønnskonto", "NOK", null);
         saldo.add(konto3);
 
-        when(sjekk.loggetInn()).thenReturn("123412341234");
+        when(sikkerhet.loggetInn()).thenReturn("123412341234");
         when(repository.hentSaldi(anyString())).thenReturn(saldo);
 
         // act
@@ -153,7 +153,7 @@ public class EnhetstestBankController {
     @Test
     public void hentSaldi_ikkeLoggetInn() {
         // arrange
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         // act
         List<Konto> resultat = bankController.hentSaldi();
@@ -173,7 +173,7 @@ public class EnhetstestBankController {
         Konto konto3 = new Konto("123412341234", "123400001441",
                 8989, "Lønnskonto", "NOK", null);
 
-        when(sjekk.loggetInn()).thenReturn(konto3.getPersonnummer());
+        when(sikkerhet.loggetInn()).thenReturn(konto3.getPersonnummer());
         when(repository.registrerBetaling(enTransaksjon)).thenReturn("OK");
 
         // act
@@ -189,7 +189,7 @@ public class EnhetstestBankController {
         Transaksjon enTransaksjon = new Transaksjon(4, "123400001551",
                 1234.56789, "2019-12-11", "Husleie", "123400001234",
                 "1");
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         // act
         String transaksjon = bankController.registrerBetaling(enTransaksjon);
@@ -210,7 +210,7 @@ public class EnhetstestBankController {
         Konto konto3 = new Konto("123412341234", "123400001441",
                 789, "Lønnskonto", "NOK", null);
 
-        when(sjekk.loggetInn()).thenReturn("123412341234");
+        when(sikkerhet.loggetInn()).thenReturn("123412341234");
         when(repository.hentBetalinger(konto3.getPersonnummer())).thenReturn(transaksjon);
 
         // act
@@ -223,7 +223,7 @@ public class EnhetstestBankController {
     @Test
     public void hentBetaling_ikkeLoggetInn() {
         // arrange
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         // act
         List<Transaksjon> resultat = bankController.hentBetalinger();
@@ -245,7 +245,7 @@ public class EnhetstestBankController {
                 840, "Lønnskonto", "NOK", null);
         konto3.setTransaksjoner(transaksjoner);
 
-        when(sjekk.loggetInn()).thenReturn("123412341234");
+        when(sikkerhet.loggetInn()).thenReturn("123412341234");
         when(repository.utforBetaling(transaksjon.getTxID())).thenReturn("OK");
         when(repository.hentBetalinger(anyString())).thenReturn(transaksjoner);
 
@@ -265,7 +265,7 @@ public class EnhetstestBankController {
                 "1");
         transaksjon.add(enTransaksjon);
 
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         // act
         List<Transaksjon> resultat = bankController.utforBetaling(enTransaksjon.getTxID());
@@ -281,7 +281,7 @@ public class EnhetstestBankController {
                 "Majorstuen 88", "1234", "Bjølsen", "12341234",
                 "123456789");
 
-        when(sjekk.loggetInn()).thenReturn("01234012340");
+        when(sikkerhet.loggetInn()).thenReturn("01234012340");
         when(repository.endreKundeInfo(any(Kunde.class))).thenReturn(enKunde.getPersonnummer());
 
         // act
@@ -298,7 +298,7 @@ public class EnhetstestBankController {
                 "Majorstuen 88", "1234", "Bjølsen", "12341234",
                 "123456789");
 
-        when(sjekk.loggetInn()).thenReturn(null);
+        when(sikkerhet.loggetInn()).thenReturn(null);
 
         //act
         String resultat = bankController.endre(enKunde);
