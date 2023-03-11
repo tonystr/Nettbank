@@ -1,0 +1,537 @@
+{
+	"info": {
+		"_postman_id": "a6776044-021b-4b10-b9a1-2a251f3c3d0a",
+		"name": "AdminKontoController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10411639"
+	},
+	"item": [
+		{
+			"name": "loggInnAdminFeilPassord",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke logget inn\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggInnAdmin?bruker=Admin&passord=feil-passord",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggInnAdmin"
+					],
+					"query": [
+						{
+							"key": "bruker",
+							"value": "Admin"
+						},
+						{
+							"key": "passord",
+							"value": "feil-passord"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggInnAdmin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Logget inn\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggInnAdmin?bruker=Admin&passord=Admin",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggInnAdmin"
+					],
+					"query": [
+						{
+							"key": "bruker",
+							"value": "Admin"
+						},
+						{
+							"key": "passord",
+							"value": "Admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentAlle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql([",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"kontonummer\": \"105010123456\",",
+							"            \"saldo\": 720.0,",
+							"            \"type\": \"Lønnskonto\",",
+							"            \"valuta\": \"NOK\",",
+							"            \"transaksjoner\": null",
+							"        },",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"kontonummer\": \"105020123456\",",
+							"            \"saldo\": 100500.0,",
+							"            \"type\": \"Sparekonto\",",
+							"            \"valuta\": \"NOK\",",
+							"            \"transaksjoner\": null",
+							"        },",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"kontonummer\": \"22334412345\",",
+							"            \"saldo\": 10234.5,",
+							"            \"type\": \"Brukskonto\",",
+							"            \"valuta\": \"NOK\",",
+							"            \"transaksjoner\": null",
+							"        }",
+							"    ]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/hentAlle",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"hentAlle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"01010110523\",\n    \"kontonummer\": \"123456789123\",\n    \"saldo\": 0,\n    \"type\": \"Brukskonto\",\n    \"valuta\": \"NOK\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/registrer",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"registrer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"01010110523\",\n    \"kontonummer\": \"123456789123\",\n    \"saldo\": 100,\n    \"type\": \"Brukskonto\",\n    \"valuta\": \"NOK\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/endre",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"endre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "slett",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/slett?kontonummer=123456789123",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"slett"
+					],
+					"query": [
+						{
+							"key": "kontonummer",
+							"value": "123456789123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggUt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggUt",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggUt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentAlleIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/hentAlle",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"hentAlle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrerIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke innlogget\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"12345678\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/registrer",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"registrer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endreIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke innlogget\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/endre",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"endre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "slettIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke innlogget\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKontoBaseURL}}/slett?kontonummer=123456789123",
+					"host": [
+						"{{adminKontoBaseURL}}"
+					],
+					"path": [
+						"slett"
+					],
+					"query": [
+						{
+							"key": "kontonummer",
+							"value": "123456789123"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "adminKontoBaseURL",
+			"value": "http://localhost:8080/adminKonto",
+			"type": "string"
+		}
+	]
+}

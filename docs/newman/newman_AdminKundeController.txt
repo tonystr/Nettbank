@@ -1,0 +1,77 @@
+newman
+
+AdminKundeController
+
+→ loggInnAdminFeilPassord
+  GET http://localhost:8080/loggInnAdmin?bruker=Admin&passord=feil-passord [200 OK, 254B, 69ms]
+  √  Body is correct
+  √  Status code is 200
+
+→ loggInnAdmin
+  GET http://localhost:8080/loggInnAdmin?bruker=Admin&passord=Admin [200 OK, 174B, 7ms]
+  √  Body is correct
+  √  Status code is 200
+
+→ hentAlle
+  GET http://localhost:8080/adminKunde/hentAlle [200 OK, 506B, 14ms]
+  √  Status code is 200
+  √  JSON response value check
+
+→ lagre
+  POST http://localhost:8080/adminKunde/lagre [200 OK, 165B, 12ms]
+  √  Status code is 200
+  √  Body is correct
+
+→ endre
+  POST http://localhost:8080/adminKunde/endre [200 OK, 165B, 8ms]
+  √  Status code is 200
+  √  Body is correct
+
+→ slett
+  GET http://localhost:8080/adminKunde/slett?personnummer=12345678912 [200 OK, 165B, 6ms]
+  √  Status code is 200
+  √  Body is correct
+
+→ loggUt
+  GET http://localhost:8080/loggUt [200 OK, 123B, 6ms]
+  √  Status code is 200
+
+→ hentAlleIkkeLoggetInn
+  GET http://localhost:8080/adminKunde/hentAlle [200 OK, 123B, 7ms]
+  √  Status code is 200
+  √  Body is correct
+
+→ lagreIkkeLoggetInn
+  POST http://localhost:8080/adminKunde/lagre [200 OK, 179B, 9ms]
+  √  Status code is 200
+  √  Body is correct
+
+→ endreIkkeLoggetInn
+  POST http://localhost:8080/adminKunde/endre [200 OK, 179B, 8ms]
+  √  Status code is 200
+  √  Body is correct
+
+→ slettIkkeLoggetInn
+  GET http://localhost:8080/adminKunde/slett?personnummer=12345678912 [200 OK, 179B, 5ms]
+  √  Status code is 200
+  √  Body is correct
+
+┌─────────────────────────┬──────────────────┬──────────────────┐
+│                         │         executed │           failed │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              iterations │                1 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│                requests │               11 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│            test-scripts │               22 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│      prerequest-scripts │               11 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              assertions │               21 │                0 │
+├─────────────────────────┴──────────────────┴──────────────────┤
+│ total run duration: 1082ms                                    │
+├───────────────────────────────────────────────────────────────┤
+│ total data received: 418B (approx)                            │
+├───────────────────────────────────────────────────────────────┤
+│ average response time: 13ms [min: 5ms, max: 69ms, s.d.: 17ms] │
+└───────────────────────────────────────────────────────────────┘

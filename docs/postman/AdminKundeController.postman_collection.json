@@ -1,0 +1,533 @@
+{
+	"info": {
+		"_postman_id": "43260696-a879-4613-9ff5-a45453d27651",
+		"name": "AdminKundeController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10411639"
+	},
+	"item": [
+		{
+			"name": "loggInnAdminFeilPassord",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke logget inn\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggInnAdmin?bruker=Admin&passord=feil-passord",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggInnAdmin"
+					],
+					"query": [
+						{
+							"key": "bruker",
+							"value": "Admin"
+						},
+						{
+							"key": "passord",
+							"value": "feil-passord"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggInnAdmin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Logget inn\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggInnAdmin?bruker=Admin&passord=Admin",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggInnAdmin"
+					],
+					"query": [
+						{
+							"key": "bruker",
+							"value": "Admin"
+						},
+						{
+							"key": "passord",
+							"value": "Admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentAlle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql([",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"fornavn\": \"Lene\",",
+							"            \"etternavn\": \"Jensen\",",
+							"            \"adresse\": \"Askerveien 22\",",
+							"            \"postnr\": \"3270\",",
+							"            \"poststed\": \"Asker\",",
+							"            \"telefonnr\": \"22224444\",",
+							"            \"passord\": \"HeiHei\"",
+							"        },",
+							"        {",
+							"            \"personnummer\": \"12345678901\",",
+							"            \"fornavn\": \"Per\",",
+							"            \"etternavn\": \"Hansen\",",
+							"            \"adresse\": \"Osloveien 82\",",
+							"            \"postnr\": \"1234\",",
+							"            \"poststed\": \"Oslo\",",
+							"            \"telefonnr\": \"12345678\",",
+							"            \"passord\": \"HeiHei\"",
+							"        }",
+							"    ]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/hentAlle",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"hentAlle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lagre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"12345678\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/lagre",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"lagre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/endre",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"endre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "slett",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/slett?personnummer=12345678912",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"slett"
+					],
+					"query": [
+						{
+							"key": "personnummer",
+							"value": "12345678912"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggUt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggUt",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggUt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentAlleIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/hentAlle",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"hentAlle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lagreIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke logget inn\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"12345678\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/lagre",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"lagre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endreIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke logget inn\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/endre",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"endre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "slettIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Ikke logget inn\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"12345678912\",\n    \"fornavn\": \"Ola\",\n    \"etternavn\": \"Nordman\",\n    \"adresse\": \"Askerveien 45\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"87654321\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{adminKundeBaseURL}}/slett?personnummer=12345678912",
+					"host": [
+						"{{adminKundeBaseURL}}"
+					],
+					"path": [
+						"slett"
+					],
+					"query": [
+						{
+							"key": "personnummer",
+							"value": "12345678912"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "adminKundeBaseURL",
+			"value": "http://localhost:8080/adminKunde",
+			"type": "string"
+		}
+	]
+}

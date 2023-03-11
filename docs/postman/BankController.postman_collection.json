@@ -1,0 +1,897 @@
+{
+	"info": {
+		"_postman_id": "21dfc102-c7be-4df4-8ef4-51c52e20baac",
+		"name": "BankController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10411639"
+	},
+	"item": [
+		{
+			"name": "loggInnFeilPassord",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"Feil i personnummer eller passord\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggInn?personnummer=01010110523&passord=feil-passord",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggInn"
+					],
+					"query": [
+						{
+							"key": "personnummer",
+							"value": "01010110523"
+						},
+						{
+							"key": "passord",
+							"value": "feil-passord"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggInn?personnummer=01010110523&passord=HeiHei",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggInn"
+					],
+					"query": [
+						{
+							"key": "personnummer",
+							"value": "01010110523"
+						},
+						{
+							"key": "passord",
+							"value": "HeiHei"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentTransaksjoner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql({",
+							"        \"personnummer\": \"01010110523\",",
+							"        \"kontonummer\": \"105010123456\",",
+							"        \"saldo\": 720.0,",
+							"        \"type\": \"Lønnskonto\",",
+							"        \"valuta\": \"NOK\",",
+							"        \"transaksjoner\": [",
+							"            {",
+							"                \"txID\": 7,",
+							"                \"fraTilKontonummer\": \"345678908\",",
+							"                \"belop\": 3000.0,",
+							"                \"dato\": \"2012-12-12\",",
+							"                \"melding\": \"\",",
+							"                \"avventer\": \"0\",",
+							"                \"kontonummer\": \"105010123456\"",
+							"            },",
+							"            {",
+							"                \"txID\": 8,",
+							"                \"fraTilKontonummer\": \"234534678\",",
+							"                \"belop\": 15.0,",
+							"                \"dato\": \"2012-12-12\",",
+							"                \"melding\": \"Hei\",",
+							"                \"avventer\": \"0\",",
+							"                \"kontonummer\": \"105010123456\"",
+							"            },",
+							"            {",
+							"                \"txID\": 9,",
+							"                \"fraTilKontonummer\": \"1234254365\",",
+							"                \"belop\": 125.0,",
+							"                \"dato\": \"2012-12-12\",",
+							"                \"melding\": \"Hopp\",",
+							"                \"avventer\": \"0\",",
+							"                \"kontonummer\": \"105010123456\"",
+							"            }",
+							"        ]",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentTransaksjoner?kontoNr=105010123456&fraDato=2000-01-01&tilDato=2100-01-01",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentTransaksjoner"
+					],
+					"query": [
+						{
+							"key": "kontoNr",
+							"value": "105010123456"
+						},
+						{
+							"key": "fraDato",
+							"value": "2000-01-01"
+						},
+						{
+							"key": "tilDato",
+							"value": "2100-01-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentKonti",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql([",
+							"        {",
+							"            \"personnummer\": null,",
+							"            \"kontonummer\": \"105020123456\",",
+							"            \"saldo\": 0.0,",
+							"            \"type\": null,",
+							"            \"valuta\": null,",
+							"            \"transaksjoner\": null",
+							"        },",
+							"        {",
+							"            \"personnummer\": null,",
+							"            \"kontonummer\": \"105010123456\",",
+							"            \"saldo\": 0.0,",
+							"            \"type\": null,",
+							"            \"valuta\": null,",
+							"            \"transaksjoner\": null",
+							"        },",
+							"        {",
+							"            \"personnummer\": null,",
+							"            \"kontonummer\": \"22334412345\",",
+							"            \"saldo\": 0.0,",
+							"            \"type\": null,",
+							"            \"valuta\": null,",
+							"            \"transaksjoner\": null",
+							"        }",
+							"    ]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentKonti",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentKonti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentSaldi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql([",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"kontonummer\": \"22334412345\",",
+							"            \"saldo\": 10234.5,",
+							"            \"type\": \"Brukskonto\",",
+							"            \"valuta\": \"NOK\",",
+							"            \"transaksjoner\": null",
+							"        },",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"kontonummer\": \"105020123456\",",
+							"            \"saldo\": 100500.0,",
+							"            \"type\": \"Sparekonto\",",
+							"            \"valuta\": \"NOK\",",
+							"            \"transaksjoner\": null",
+							"        },",
+							"        {",
+							"            \"personnummer\": \"01010110523\",",
+							"            \"kontonummer\": \"105010123456\",",
+							"            \"saldo\": 720.0,",
+							"            \"type\": \"Lønnskonto\",",
+							"            \"valuta\": \"NOK\",",
+							"            \"transaksjoner\": null",
+							"        }",
+							"    ]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentSaldi",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentSaldi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrerBetaling",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fraTilKontonummer\": \"105020123456\",\n    \"belop\": 500,\n    \"dato\": \"2022-02-20\",\n    \"melding\": \"Test\",\n    \"kontonummer\": \"22334412345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/registrerBetaling",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"registrerBetaling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentBetalinger",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql([{",
+							"        \"txID\": 1,",
+							"        \"fraTilKontonummer\": \"20102012345\",",
+							"        \"belop\": 100.5,",
+							"        \"dato\": \"2015-03-15\",",
+							"        \"melding\": \"Fjordkraft\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"105010123456\"",
+							"    }, {",
+							"        \"txID\": 2,",
+							"        \"fraTilKontonummer\": \"20102012345\",",
+							"        \"belop\": 400.4,",
+							"        \"dato\": \"2015-03-20\",",
+							"        \"melding\": \"Skagen\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"105010123456\"",
+							"    }, {",
+							"        \"txID\": 4,",
+							"        \"fraTilKontonummer\": \"20102012347\",",
+							"        \"belop\": 5000.5,",
+							"        \"dato\": \"2015-03-30\",",
+							"        \"melding\": \"Husleie\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"105010123456\"",
+							"    }, {",
+							"        \"txID\": 10,",
+							"        \"fraTilKontonummer\": \"105020123456\",",
+							"        \"belop\": 500.0,",
+							"        \"dato\": \"2022-02-20\",",
+							"        \"melding\": \"Test\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"22334412345\"",
+							"    }]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentBetalinger",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentBetalinger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "utforBetaling",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql([{",
+							"        \"txID\": 2,",
+							"        \"fraTilKontonummer\": \"20102012345\",",
+							"        \"belop\": 400.4,",
+							"        \"dato\": \"2015-03-20\",",
+							"        \"melding\": \"Skagen\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"105010123456\"",
+							"    }, {",
+							"        \"txID\": 4,",
+							"        \"fraTilKontonummer\": \"20102012347\",",
+							"        \"belop\": 5000.5,",
+							"        \"dato\": \"2015-03-30\",",
+							"        \"melding\": \"Husleie\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"105010123456\"",
+							"    }, {",
+							"        \"txID\": 10,",
+							"        \"fraTilKontonummer\": \"105020123456\",",
+							"        \"belop\": 500.0,",
+							"        \"dato\": \"2022-02-20\",",
+							"        \"melding\": \"Test\",",
+							"        \"avventer\": \"1\",",
+							"        \"kontonummer\": \"22334412345\"",
+							"    }]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/utforBetaling?txID=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"utforBetaling"
+					],
+					"query": [
+						{
+							"key": "txID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentKundeInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value check\", () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql({",
+							"        \"personnummer\": \"01010110523\",",
+							"        \"fornavn\": \"Lene\",",
+							"        \"etternavn\": \"Jensen\",",
+							"        \"adresse\": \"Askerveien 22\",",
+							"        \"postnr\": \"3270\",",
+							"        \"poststed\": \"Asker\",",
+							"        \"telefonnr\": \"22224444\",",
+							"        \"passord\": \"HeiHei\"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentKundeInfo",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentKundeInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggUt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggUt",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggUt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endreKundeInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"01010110523\",\n    \"fornavn\": \"Lene\",\n    \"etternavn\": \"Jensen\",\n    \"adresse\": \"Askerveien 22\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"12345678\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/endreKundeInfo",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"endreKundeInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentTransaksjonerIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentTransaksjoner?kontoNr=105010123456&fraDato=2000-01-01&tilDato=2100-01-01",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentTransaksjoner"
+					],
+					"query": [
+						{
+							"key": "kontoNr",
+							"value": "105010123456"
+						},
+						{
+							"key": "fraDato",
+							"value": "2000-01-01"
+						},
+						{
+							"key": "tilDato",
+							"value": "2100-01-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentKontiIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentKonti",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentKonti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrerBetalingIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fraTilKontonummer\": \"105020123456\",\n    \"belop\": 500,\n    \"dato\": \"2022-02-20\",\n    \"melding\": \"Test\",\n    \"kontonummer\": \"22334412345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/registrerBetaling",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"registrerBetaling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentBetalingerIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentBetalinger",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentBetalinger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "utforBetalingIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/utforBetaling?txID=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"utforBetaling"
+					],
+					"query": [
+						{
+							"key": "txID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hentKundeInfoIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/hentKundeInfo",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"hentKundeInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "endreKundeInfoIkkeLoggetInn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", () => {",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnummer\": \"01010110523\",\n    \"fornavn\": \"Lene\",\n    \"etternavn\": \"Jensen\",\n    \"adresse\": \"Askerveien 22\",\n    \"postnr\": \"3270\",\n    \"poststed\": \"Asker\",\n    \"telefonnr\": \"12345678\",\n    \"passord\": \"HeiHei\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/endreKundeInfo",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"endreKundeInfo"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
