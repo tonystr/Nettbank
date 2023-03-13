@@ -8,3 +8,6 @@ Kildekode ligger i src/test/java/oslomet/testing
 Postman collections ligger i docs/postman.
 
 Newman rapporter ligger i docs/newman.
+
+## E2E Testing (Selenium:
+Selenium testen ligger i docs.
