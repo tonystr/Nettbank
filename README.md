@@ -9,5 +9,5 @@ Postman collections ligger i docs/postman.
 
 Newman rapporter ligger i docs/newman.
 
-## E2E Testing (Selenium:
+## E2E Testing (Selenium):
 Selenium testen ligger i docs.
