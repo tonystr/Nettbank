@@ -518,36 +518,6 @@
 			"response": []
 		},
 		{
-			"name": "loggUt",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/loggUt",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"loggUt"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "endreKundeInfo",
 			"event": [
 				{
@@ -559,7 +529,7 @@
 							"});",
 							"",
 							"pm.test(\"Body is correct\", () => {",
-							"    pm.response.to.have.body(\"\");",
+							"    pm.response.to.have.body(\"OK\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -585,6 +555,36 @@
 					],
 					"path": [
 						"endreKundeInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggUt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/loggUt",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"loggUt"
 					]
 				}
 			},
